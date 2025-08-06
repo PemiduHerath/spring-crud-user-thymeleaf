@@ -7,6 +7,7 @@ import com.example.testapp.repository.userRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import com.example.testapp.model.UserModel;
 
 // @CrossOrigin(origins = " ") this use when we implement frontend and backend separately with different ports. in here i use thymeleaf so no need to use this
 
@@ -41,4 +42,16 @@ public class userController {
         return "redirect:/home";
     }
 
+    @PostMapping("/add")
+    public String addUser(@ModelAttribute UserModel user, Model model) {
+        repo.save(user);
+        model.addAttribute("users", repo.findAll());
+        return "home";
+    }
+
+    @GetMapping("/users/add")
+    public String showAddUserForm(Model model) {
+        model.addAttribute("user", new UserModel());
+        return "addUser";
+    }
 }
