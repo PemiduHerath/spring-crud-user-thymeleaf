@@ -1,5 +1,7 @@
 package com.example.testapp.controller;
 
+import org.springframework.ui.Model; // pass data from the controller to the view
+import com.example.testapp.model.LoginRequest;
 import com.example.testapp.repository.userRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,8 @@ public class userController {
         return "login";
     }
 
-     @PostMapping("/api/login")
-    public String login(@ModelAttribute LoginRequest loginRequest) {
+    @PostMapping("/api/login")
+    public String login(@ModelAttribute LoginRequest loginRequest, Model model) {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
 
@@ -28,31 +30,15 @@ public class userController {
         if (user.isEmpty()) {
             return "login";
         } else {
+            model.addAttribute("users", repo.findAll());
             return "home";
         }
     }
-    // DTO class for login request
-    public static class LoginRequest {
-        private String username;
-        private String password;
 
-        public LoginRequest() {}
-        public LoginRequest(String username, String password) {
-            this.username = username;
-            this.password = password;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-        public void setUsername(String username) {
-            this.username = username;
-        }
-        public String getPassword() {
-            return password;
-        }
-        public void setPassword(String password) {
-            this.password = password;
-        }
+    @PostMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
+        repo.deleteById(id);
+        return "redirect:/home";
     }
+
 }

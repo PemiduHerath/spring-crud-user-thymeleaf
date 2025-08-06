@@ -7,7 +7,26 @@
 <body>
     <h2>Welcome!</h2>
     <p>You have successfully logged in.</p>
-
-    <p>Username: <span th:text="${username}">User</span></p>
+    <div style="position: fixed; top: 20px; right: 20px;">
+        <a th:href="@{/users/add}">
+            <button type="button">Add New User</button>
+        </a>
+    </div>
+    <h3>All Users:</h3>
+    <ul>
+        <li th:each="user : ${users}">
+            <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                <span><strong>Username:</strong> <span th:text="${user.username}">Username</span></span><br>
+                <span><strong>Password:</strong> <span th:text="${user.password}">Password</span></span><br>
+                <form th:action="@{'/users/delete/' + ${user.id}}" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+                <a th:href="@{'/users/update/' + ${user.id}}">
+                    <button type="button">Update</button>
+                </a>
+            </div>
+        </li>
+    </ul>
+    
 </body>
 </html>
