@@ -6,6 +6,8 @@
 </head>
 <body>
     <h2>Add New User</h2>
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+    
     <form th:action="@{/add}" th:object="${user}" method="post">
         <div>
             <label for="username">Username:</label>

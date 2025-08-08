@@ -44,9 +44,15 @@ public class userController {
 
     @PostMapping("/add")
     public String addUser(@ModelAttribute UserModel user, Model model) {
-        repo.save(user);
-        model.addAttribute("users", repo.findAll());
-        return "home";
+        if (repo.findByUsername(user.getUsername()).isPresent()) {
+            model.addAttribute("error", "Username already exists!");
+            model.addAttribute("user", user);
+            return "addUser";
+        } else {
+            repo.save(user);
+            model.addAttribute("users", repo.findAll());
+            return "home";
+        }
     }
 
     @GetMapping("/users/add")
