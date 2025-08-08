@@ -21,7 +21,7 @@
                 <form th:action="@{'/users/delete/' + ${user.id}}" method="post" style="display:inline;">
                     <button type="submit">Delete</button>
                 </form>
-                <a th:href="@{'/users/update/' + ${user.id}}">
+                <a th:href="@{'/users/edit/' + ${user.id}}">
                     <button type="button">Update</button>
                 </a>
             </div>

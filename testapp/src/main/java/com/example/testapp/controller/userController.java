@@ -54,4 +54,29 @@ public class userController {
         model.addAttribute("user", new UserModel());
         return "addUser";
     }
+
+    @PostMapping("/users/update/{id}")
+    public String updateUser(@PathVariable("id") Long id, @ModelAttribute UserModel user, Model model) {
+        user.setId(id);
+        repo.save(user);
+        model.addAttribute("users", repo.findAll());
+        return "home";
+    }
+
+    @GetMapping("/users/edit/{id}")
+    public String showEditUserForm(@PathVariable("id") Long id, Model model) {
+        var user = repo.findById(id);
+        if (user.isPresent()) {
+            model.addAttribute("user", user.get());
+            return "editUser";
+        } else {
+            return "redirect:/home";
+        }
+    }
+
+    @GetMapping("/home")
+    public String showHomePage(Model model) {
+        model.addAttribute("users", repo.findAll());
+        return "home";
+    }
 }

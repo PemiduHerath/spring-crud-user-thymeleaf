@@ -8,7 +8,7 @@
     <h2>Add New User</h2>
     <form th:action="@{/add}" th:object="${user}" method="post">
         <div>
-            <label for="name">Username:</label>
+            <label for="username">Username:</label>
             <input type="text" th:field="*{username}" id="username" required />
         </div>
         <div>
