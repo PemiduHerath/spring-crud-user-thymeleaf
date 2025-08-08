@@ -1,6 +1,6 @@
 package com.example.testapp.controller;
 
-import org.springframework.ui.Model; // pass data from the controller to the view
+import org.springframework.ui.Model; // pass data from the controller to the view(bridege between controller and view to send data)
 import com.example.testapp.model.LoginRequest;
 import com.example.testapp.repository.userRepo;
 
@@ -11,12 +11,13 @@ import com.example.testapp.model.UserModel;
 
 // @CrossOrigin(origins = " ") this use when we implement frontend and backend separately with different ports. in here i use thymeleaf so no need to use this
 
-@Controller
+// @RestController is used for RESTful web services, it returns JSON or XML responses only
+@Controller // use this bcz it sends html pages to the browser(views)
 public class userController {
 
-    @Autowired
+    @Autowired // this is used to inject the userRepo bean into this controller(create object automatically)
     private userRepo repo;
-
+ 
     @GetMapping("/")
     public String showLoginPage() {
         return "login";
@@ -86,3 +87,6 @@ public class userController {
         return "home";
     }
 }
+
+//pathvariable is used to get the value from the URL
+//modelattribute is used to set the form data to the model class

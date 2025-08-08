@@ -6,8 +6,9 @@
 </head>
 <body>
     <h2>Add New User</h2>
-    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
-    
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p> 
+    <!-- showing the error msg inhere using ${} -->
+
     <form th:action="@{/add}" th:object="${user}" method="post">
         <div>
             <label for="username">Username:</label>
@@ -20,6 +21,7 @@
         <div>
             <button type="submit">Add User</button>
         </div>
+        <!-- user is the object, through that username and password is calling - th:field="*{username}" -->
     </form>
 </body>
 </html>
