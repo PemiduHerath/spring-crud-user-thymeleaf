@@ -3,24 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit User</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body>
-    <h2>Edit User</h2>
-    <form th:action="@{'/users/update/'+ ${user.id}}" th:object="${user}" method="post">
-        <input type="hidden" th:field="*{id}" />
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" th:field="*{username}" required />
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" th:field="*{password}" required />
-        </div>
-        <div>
-            <button type="submit">Update</button>
-            <a th:href="@{/home}">Cancel</a>
-        </div>
-    </form>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Edit User</h2>
+        <form th:action="@{'/users/update/'+ ${user.id}}" th:object="${user}" method="post" class="space-y-4">
+            <input type="hidden" th:field="*{id}" />
+            <div>
+                <label for="username" class="block font-medium text-gray-700">Username:</label>
+                <input type="text" id="username" th:field="*{username}" required
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+            <div>
+                <label for="password" class="block font-medium text-gray-700">Password:</label>
+                <input type="password" id="password" th:field="*{password}" required
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+            <div class="flex justify-between">
+                <button type="submit" 
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+                    Update
+                </button>
+                <a th:href="@{/home}" 
+                    class="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500 transition duration-200">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
