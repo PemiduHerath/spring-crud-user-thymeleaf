@@ -54,7 +54,7 @@ public class userController {
             model.addAttribute("user", user);
             return "addUser";
         } else {
-            loginService.addUser(user.getUsername(), user.getPassword());
+            loginService.addUser(user.getUsername(), user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail());
             model.addAttribute("users", repo.findAll());
             return "home";
         }
@@ -68,7 +68,7 @@ public class userController {
 
     @PostMapping("/users/update/{id}")
     public String updateUser(@PathVariable("id") Long id, @ModelAttribute UserModel user, Model model) {
-        loginService.updateUserPassword(user.getUsername(), user.getPassword());
+        loginService.updateUserPassword(user.getUsername(), user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail());
         model.addAttribute("users", repo.findAll());
         return "home";
     }
@@ -88,6 +88,17 @@ public class userController {
     public String showHomePage(Model model) {
         model.addAttribute("users", repo.findAll());
         return "home";
+    }
+
+    @GetMapping("/users/view/{id}")
+    public String viewUser(@PathVariable("id") Long id, Model model) {
+        var user = repo.findById(id);
+        if (user.isPresent()) {
+            model.addAttribute("user", user.get());
+            return "viewUser";
+        } else {
+            return "redirect:/home";
+        }
     }
 }
 

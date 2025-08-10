@@ -25,20 +25,26 @@ public class UserLoginService {
         return false;
     }
 
-    public void addUser(String username, String password) {
+    public void addUser(String username, String password, String firstname, String lastname, String email) {
         UserModel user = new UserModel();
         String encodedPassword = passwordEncoder.encode(password);
         user.setUsername(username);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setEmail(email);
         user.setPassword(encodedPassword);
         repo.save(user);
     }
 
-    public void updateUserPassword(String username, String newPassword) {
+    public void updateUserPassword(String username, String newPassword, String firstname, String lastname, String email) {
         Optional<UserModel> userOptional = repo.findByUsername(username);
         if (userOptional.isPresent()) {
             UserModel user = userOptional.get();
             String encodedPassword = passwordEncoder.encode(newPassword);
             user.setPassword(encodedPassword);
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
+            user.setEmail(email);
             repo.save(user);
         }
     }

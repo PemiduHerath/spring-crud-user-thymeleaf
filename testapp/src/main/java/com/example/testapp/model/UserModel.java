@@ -21,6 +21,12 @@ public class UserModel {
     private String username;
     @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "firstname", nullable = false)
+    private String firstname;
+    @Column(name = "lastname", nullable = false)
+    private String lastname;
+    @Column(name = "email")
+    private String email;
 
 }
 
