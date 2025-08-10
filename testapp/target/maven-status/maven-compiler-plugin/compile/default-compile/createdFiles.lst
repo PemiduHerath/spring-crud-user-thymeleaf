@@ -1,4 +1,5 @@
 com\example\testapp\TestappApplication.class
+com\example\testapp\service\UserLoginService.class
 com\example\testapp\repository\userRepo.class
 com\example\testapp\model\LoginRequest.class
 com\example\testapp\controller\userController.class

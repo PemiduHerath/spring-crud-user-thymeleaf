@@ -3,6 +3,7 @@ package com.example.testapp.controller;
 import org.springframework.ui.Model; // pass data from the controller to the view(bridege between controller and view to send data)
 import com.example.testapp.model.LoginRequest;
 import com.example.testapp.repository.userRepo;
+import com.example.testapp.service.UserLoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,9 @@ public class userController {
 
     @Autowired // this is used to inject the userRepo bean into this controller(create object automatically)
     private userRepo repo;
+
+    @Autowired
+    private UserLoginService loginService;
  
     @GetMapping("/")
     public String showLoginPage() {
@@ -28,8 +32,8 @@ public class userController {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
 
-        var user = repo.findByUsernameAndPassword(username, password);
-        if (user.isEmpty()) {
+        boolean user = loginService.checkLogin(username, password);
+        if (user == false) {
             return "login";
         } else {
             model.addAttribute("users", repo.findAll());
@@ -50,7 +54,7 @@ public class userController {
             model.addAttribute("user", user);
             return "addUser";
         } else {
-            repo.save(user);
+            loginService.addUser(user.getUsername(), user.getPassword());
             model.addAttribute("users", repo.findAll());
             return "home";
         }
@@ -64,8 +68,7 @@ public class userController {
 
     @PostMapping("/users/update/{id}")
     public String updateUser(@PathVariable("id") Long id, @ModelAttribute UserModel user, Model model) {
-        user.setId(id);
-        repo.save(user);
+        loginService.updateUserPassword(user.getUsername(), user.getPassword());
         model.addAttribute("users", repo.findAll());
         return "home";
     }
