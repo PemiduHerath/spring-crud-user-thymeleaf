@@ -19,7 +19,7 @@ public class userController {
     @Autowired // this is used to inject the userRepo bean into this controller(create object automatically)
     private userRepo repo;
 
-    @Autowired
+    @Autowired // this is used to inject the UserLoginService bean into this controller
     private UserLoginService loginService;
  
     @GetMapping("/")
@@ -41,7 +41,7 @@ public class userController {
         }
     }
 
-    @PostMapping("/users/delete/{id}")
+    @DeleteMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         repo.deleteById(id);
         return "redirect:/home";
@@ -66,9 +66,9 @@ public class userController {
         return "addUser";
     }
 
-    @PostMapping("/users/update/{id}")
+    @PutMapping("/users/update/{id}")
     public String updateUser(@PathVariable("id") Long id, @ModelAttribute UserModel user, Model model) {
-        loginService.updateUserPassword(user.getUsername(), user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail());
+        loginService.updateUserData(user.getUsername(), user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail());
         model.addAttribute("users", repo.findAll());
         return "home";
     }
@@ -104,3 +104,4 @@ public class userController {
 
 //pathvariable is used to get the value from the URL
 //modelattribute is used to set the form data to the model class
+//Requestbody is used to get the data from the request body

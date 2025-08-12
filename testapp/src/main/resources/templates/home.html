@@ -23,6 +23,8 @@
         <li th:each="user : ${users}" class="bg-white shadow rounded-lg p-4">
             <span class="block mb-2"><strong>Username:</strong> <span th:text="${user.username}">Username</span></span>
             <form th:action="@{'/users/delete/' + ${user.id}}" method="post" class="inline">
+                <input type="hidden" name="_method" value="delete"/> 
+                <!-- this act as hidden http method-->
                 <button type="submit" 
                     class="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition duration-200">
                     Delete

@@ -36,12 +36,15 @@ public class UserLoginService {
         repo.save(user);
     }
 
-    public void updateUserPassword(String username, String newPassword, String firstname, String lastname, String email) {
+    public void updateUserData(String username, String newPassword, String firstname, String lastname, String email) {
         Optional<UserModel> userOptional = repo.findByUsername(username);
         if (userOptional.isPresent()) {
             UserModel user = userOptional.get();
-            String encodedPassword = passwordEncoder.encode(newPassword);
-            user.setPassword(encodedPassword);
+
+            if (newPassword != null && !newPassword.trim().isEmpty()) {
+                String encodedPassword = passwordEncoder.encode(newPassword);
+                user.setPassword(encodedPassword);
+            }
             user.setFirstname(firstname);
             user.setLastname(lastname);
             user.setEmail(email);

@@ -19,7 +19,7 @@ public class UserModel {
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
     @Column(name = "firstname", nullable = false)
     private String firstname;
