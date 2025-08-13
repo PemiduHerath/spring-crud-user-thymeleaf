@@ -104,4 +104,4 @@ public class userController {
 
 //pathvariable is used to get the value from the URL
 //modelattribute is used to set the form data to the model class
-//Requestbody is used to get the data from the request body
+//Requestbody is used to get the data as JSON format

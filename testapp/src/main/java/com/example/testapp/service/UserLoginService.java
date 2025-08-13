@@ -14,8 +14,8 @@ public class UserLoginService {
 
     @Autowired // this is used to inject the userRepo bean into this service(create object automatically)
     private userRepo repo;
-
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired // this is used to inject the BCryptPasswordEncoder bean into this service
+    private BCryptPasswordEncoder passwordEncoder;
 
     public boolean checkLogin(String username, String password) {
         Optional<UserModel> user = repo.findByUsername(username);
